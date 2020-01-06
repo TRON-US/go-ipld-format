@@ -88,7 +88,9 @@ func (t *Batch) asyncCommit() {
 				return
 			}
 		case <-t.ctx.Done():
-			t.setError(t.ctx.Err())
+			if t.ctx != nil {
+				t.setError(t.ctx.Err())
+			}
 			return
 		}
 	}
@@ -153,7 +155,9 @@ loop:
 				break loop
 			}
 		case <-t.ctx.Done():
-			t.setError(t.ctx.Err())
+			if t.ctx != nil {
+				t.setError(t.ctx.Err())
+			}
 			break loop
 		}
 	}
@@ -162,6 +166,10 @@ loop:
 }
 
 func (t *Batch) setError(err error) {
+	if t.err != nil {
+		return
+	}
+
 	t.err = err
 
 	t.cancel()
