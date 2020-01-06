@@ -1,4 +1,4 @@
-module github.com/TRON-US/go-ipld-format
+module github.com/ipfs/go-ipld-format
 
 require (
 	github.com/ipfs/go-block-format v0.0.2
